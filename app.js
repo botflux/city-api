@@ -3,7 +3,7 @@ const searchConty = require('./src/search-county')
 const convertCities = require('./src/convert-cities')
 const fetch = require('node-fetch')
 
-const APPLICATION_PORT = 3000
+const APPLICATION_PORT = process.env.PORT || 3000
 const app = express()
 
 app.get('/county/:code', (req, res) => {
@@ -27,5 +27,5 @@ app.get('/county/:code', (req, res) => {
 })
 
 app.listen(APPLICATION_PORT, () => {
-    console.log(`Your application is now listening: http://localhost:${APPLICATION_PORT}`)
+    console.log(`Your application is now listening on port ${APPLICATION_PORT}`)
 })
