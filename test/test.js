@@ -2,6 +2,7 @@ const assert = require('assert')
 const searchCounty = require('../src/search-county')
 const convertCities = require('../src/convert-cities')
 const searchCounties = require('../src/search-counties')
+const convertCounties = require('../src/convert-counties')
 
 // this flag is here to know if the fake fetch has been called
 let isFakeFetchCalled = false
@@ -47,7 +48,7 @@ describe('#searchCounty', () => {
             })
     })
 
-    it ('returns the list of cities', (done) => {
+    it ('returns data correctly', (done) => {
         searchCounty(fakeFetchCounty, { county: '68' })
             .then(result => {
                 assert.strictEqual(
@@ -70,7 +71,7 @@ describe('#searchCounties', () => {
             })
     })
     
-    it ('returns the list of cities', (done) => {
+    it ('returns data correctly', (done) => {
         searchCounties(fakeFetchCounties)
             .then(result => {
                 assert.strictEqual(
@@ -89,6 +90,19 @@ describe('#convertCities', () => {
             ])),
             JSON.stringify([
                 { city: 'Bergheim', dep: '68', insee: '68028', cp: '68750' }
+            ])
+        )
+    })
+})
+
+describe('#convertCounties', () => {
+    it('converts the counties into the correct format', () => {
+        assert.strictEqual(
+            JSON.stringify(convertCounties([
+                { nom: 'Ain', code: '01', codeRegion: '84' },
+            ])),
+            JSON.stringify([
+                { cp: '84', dep: 'Ain' }
             ])
         )
     })
