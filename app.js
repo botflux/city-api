@@ -42,6 +42,20 @@ app.get('/county/:code', (req, res) => {
     })
 })
 
+app.all('*', (req, res) => {
+    res.send(JSON.stringify({
+        error: true,
+        message: 'No route matching your request!'
+    }))
+})
+
+app.use((e, req, res, next) => {
+    res.status(500).send(JSON.stringify({
+        errors: true,
+        message: 'Something went wrong!'
+    }))
+}) 
+
 app.listen(APPLICATION_PORT, () => {
     console.log(`Your application is now listening on port ${APPLICATION_PORT}`)
 })
