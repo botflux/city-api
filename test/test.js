@@ -3,6 +3,7 @@ const searchCities = require('../src/search-cities')
 const convertCities = require('../src/convert-cities')
 const searchCounties = require('../src/search-counties')
 const convertCounties = require('../src/convert-counties')
+const searchCity = require('../src/search-city')
 
 // this flag is here to know if the fake fetch has been called
 let isFakeFetchCalled = false
@@ -105,5 +106,20 @@ describe('#convertCounties', () => {
                 { cp: '84', dep: 'Ain' }
             ])
         )
+    })
+})
+
+const cities = Promise.resolve([
+    { nom: 'Bergheim' },
+    { nom: 'Colmar' }
+])
+
+describe('#searchCity', () => {
+    it('calls geo.api.gouv.fr', (done) => {
+        searchCity(cities, {name: 'Bergheim'})
+            .then(city => {
+                assert.strictEqual(city.nom, 'Bergheim')
+                done()
+            })
     })
 })
