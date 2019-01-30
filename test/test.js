@@ -1,5 +1,5 @@
 const assert = require('assert')
-const searchCounty = require('../src/search-county')
+const searchCities = require('../src/search-cities')
 const convertCities = require('../src/convert-cities')
 const searchCounties = require('../src/search-counties')
 const convertCounties = require('../src/convert-counties')
@@ -42,14 +42,14 @@ describe('#searchCounty', () => {
     isFakeFetchCalled = false
 
     it ('calls geo.api.gouv.fr', () => {
-        searchCounty(fakeFetchCounty, { county: '68' })
+        searchCities(fakeFetchCounty, { county: '68' })
             .then(result => {
                 assert.strictEqual(isFakeFetchCalled, true)
             })
     })
 
     it ('returns data correctly', (done) => {
-        searchCounty(fakeFetchCounty, { county: '68' })
+        searchCities(fakeFetchCounty, { county: '68' })
             .then(result => {
                 assert.strictEqual(
                     JSON.stringify(result[0]), 

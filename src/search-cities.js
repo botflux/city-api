@@ -4,9 +4,9 @@
  * @param {Function} fetch function that manage the fetching
  * @param {{}} options options
  */
-const searchCounty = (fetch, { county }) => {
+const searchCities = (fetch, { county }) => {
     return fetch(`https://geo.api.gouv.fr/departements/${county}/communes`)
         .then(response => response.json())
 }
 
-module.exports = searchCounty
+module.exports = searchCities

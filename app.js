@@ -1,5 +1,5 @@
 const express = require('express')
-const searchCounty = require('./src/search-county')
+const searchCities = require('./src/search-cities')
 const convertCities = require('./src/convert-cities')
 const searchCounties = require('./src/search-counties')
 const convertCounties = require('./src/convert-counties')
@@ -25,7 +25,7 @@ app.get('/county', (req, res) => {
 app.get('/county/:code', (req, res) => {
     const { code } = req.params
 
-    searchCounty(fetch, {
+    searchCities(fetch, {
         county: code
     })
     .then(geoCities => convertCities(geoCities))
