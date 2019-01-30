@@ -109,10 +109,10 @@ describe('#convertCounties', () => {
     })
 })
 
-const cities = Promise.resolve([
+const cities = [
     { nom: 'Bergheim' },
     { nom: 'Colmar' }
-])
+]
 
 describe('#searchCity', () => {
     it('calls geo.api.gouv.fr', (done) => {

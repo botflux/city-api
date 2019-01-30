@@ -3,6 +3,7 @@ const searchCities = require('./src/search-cities')
 const convertCities = require('./src/convert-cities')
 const searchCounties = require('./src/search-counties')
 const convertCounties = require('./src/convert-counties')
+const searchCity = require('./src/search-city')
 const fetch = require('node-fetch')
 
 const APPLICATION_PORT = process.env.PORT || 3000
@@ -18,7 +19,7 @@ app.get('/county', (req, res) => {
         .then(response => res.send(JSON.stringify(response)))
         .catch(e => res.send(JSON.stringify({
             errors: true,
-            result: JSON.stringify(e)
+            results: JSON.stringify(e)
         })))
 })
 
@@ -37,9 +38,22 @@ app.get('/county/:code', (req, res) => {
     .catch(e => {
         res.send(JSON.stringify({
             errors: true,
-            result: JSON.stringify(e)
+            results: JSON.stringify(e)
         }))
     })
+})
+app.get('/county/:code/:name', (req, res) => {
+    const { code, name } = req.params
+
+    searchCities(fetch, {county: 68})
+        .then(geoCities => searchCity(geoCities, {name}))
+        .then(geoCity => convertCities([geoCity]))
+        .then(city => ({ errors: false, results: city }))
+        .then(response => res.send(JSON.stringify(response)))
+        .catch(e => res.send(JSON.stringify({
+            errors: true,
+            results: e
+        })))
 })
 
 app.all('*', (req, res) => {
