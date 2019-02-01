@@ -16,11 +16,11 @@ app.get('/county', (req, res) => {
             errors: false,
             results: convertedCounties
         }))
-        .then(response => res.send(JSON.stringify(response)))
-        .catch(e => res.send(JSON.stringify({
+        .then(response => res.json(response))
+        .catch(e => res.json({
             errors: true,
             results: JSON.stringify(e)
-        })))
+        }))
 })
 
 app.get('/county/:code', (req, res) => {
@@ -34,12 +34,12 @@ app.get('/county/:code', (req, res) => {
         errors: false,
         results: convertedCities
     }))
-    .then(response => res.send(JSON.stringify(response)))
+    .then(response => res.json(response))
     .catch(e => {
-        res.send(JSON.stringify({
+        res.json({
             errors: true,
             results: JSON.stringify(e)
-        }))
+        })
     })
 })
 app.get('/county/:code/:name', (req, res) => {
@@ -49,25 +49,25 @@ app.get('/county/:code/:name', (req, res) => {
         .then(geoCities => searchCity(geoCities, {name}))
         .then(geoCity => convertCities([geoCity]))
         .then(city => ({ errors: false, results: city }))
-        .then(response => res.send(JSON.stringify(response)))
-        .catch(e => res.send(JSON.stringify({
+        .then(response => res.json(response))
+        .catch(e => res.json({
             errors: true,
             results: e
-        })))
+        }))
 })
 
 app.all('*', (req, res) => {
-    res.send(JSON.stringify({
+    res.json({
         error: true,
         message: 'No route matching your request!'
-    }))
+    })
 })
 
 app.use((e, req, res, next) => {
-    res.status(500).send(JSON.stringify({
+    res.status(500).json({
         errors: true,
         message: 'Something went wrong!'
-    }))
+    })
 }) 
 
 app.listen(APPLICATION_PORT, () => {
