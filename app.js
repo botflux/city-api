@@ -45,7 +45,7 @@ app.get('/county/:code', (req, res) => {
 app.get('/county/:code/:name', (req, res) => {
     const { code, name } = req.params
 
-    searchCities(fetch, {county: 68})
+    searchCities(fetch, {county: code})
         .then(geoCities => searchCity(geoCities, {name}))
         .then(geoCity => convertCities([geoCity]))
         .then(city => ({ errors: false, results: city }))
